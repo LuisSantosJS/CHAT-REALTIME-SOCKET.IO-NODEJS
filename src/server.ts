@@ -11,11 +11,6 @@ app.use(cors());
 const server = http.createServer(app)
 const io = IO.listen(server);
 
-app.get('/', (request: Request, response: Response) => {
-  knex('messages').select('*').orderBy('id', 'desc').limit(200).then(res => {
-    return response.json(res)
-  })
-})
 
 io.on("connection", socket => {
   console.log("user connected");
