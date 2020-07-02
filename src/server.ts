@@ -1,14 +1,14 @@
 import express, { Request, Response } from 'express';
 import knex from './database/connection';
 import cors from 'cors';
-import http from 'http';
+import https from 'https';
 import * as IO from 'socket.io';
 const port = 3000;
 const app = express();
 
 app.use(cors());
 
-const server = http.createServer(app)
+const server = https.createServer(app)
 const io = IO.listen(server);
 
 
