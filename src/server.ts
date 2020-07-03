@@ -3,7 +3,7 @@ import knex from './database/connection';
 import cors from 'cors';
 import http from 'http';
 import * as IO from 'socket.io';
-const port = 3333;
+const port = 3000;
 const app = express();
 
 app.use(cors());
