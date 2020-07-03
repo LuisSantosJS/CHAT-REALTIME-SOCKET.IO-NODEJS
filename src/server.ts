@@ -1,31 +1,31 @@
 import express, { Request, Response } from 'express';
 import knex from './database/connection';
 import cors from 'cors';
-import https from 'https';
+import http from 'http';
 import * as IO from 'socket.io';
-const port = 3000;
+const port = 3333;
 const app = express();
 
 app.use(cors());
 
-const server = https.createServer(app)
+const server = http.createServer(app)
 const io = IO.listen(server);
 
 
 io.on("connection", socket => {
-  console.log("user connected");
-  socket.on("chat", msg => {
-    knex('messages').insert([{
-      userID: msg.userID,
-      name: msg.name,
-      msm: msg.msm,
-      course: msg.course
-    }]).then(() => {
-      knex('messages').select('*').orderBy('id', 'desc').limit(200).then(response => {
-        io.emit("chat", response);
+  console.log('user conected')
+    socket.on("chat", msg => {
+      knex('messages').insert([{
+        userID: msg.userID,
+        name: msg.name,
+        msm: msg.msm,
+        course: msg.course
+      }]).then(() => {
+        knex('messages').select('*').orderBy('id', 'desc').limit(200).then(response => {
+          io.emit("chat", response);
+        })
       })
-    })
-  });
+    });
 });
 
 
